@@ -145,7 +145,7 @@ macro(add_tapi_executable name)
   set_target_properties(${name} PROPERTIES FOLDER "Tapi executables")
 endmacro(add_tapi_executable)
 
-function(tapi_clang_tablegen)
+function(tapi_tablegen)
   cmake_parse_arguments(CTG "" "SOURCE;TARGET" "" ${ARGN})
 
   if( NOT CTG_SOURCE )
@@ -153,14 +153,14 @@ function(tapi_clang_tablegen)
   endif()
 
   set( LLVM_TARGET_DEFINITIONS ${CTG_SOURCE} )
-  tablegen(CLANG ${CTG_UNPARSED_ARGUMENTS})
+  tablegen(LLVM ${CTG_UNPARSED_ARGUMENTS})
 
   if(CTG_TARGET)
     add_public_tablegen_target(${CTG_TARGET})
     set_target_properties( ${CTG_TARGET} PROPERTIES FOLDER "Tapi tablegenning")
     set_property(GLOBAL APPEND PROPERTY TAPI_TABLEGEN_TARGETS ${CTG_TARGET})
   endif()
-endfunction(tapi_clang_tablegen)
+endfunction(tapi_tablegen)
 
 include_directories(BEFORE
   ${CMAKE_CURRENT_BINARY_DIR}/include
