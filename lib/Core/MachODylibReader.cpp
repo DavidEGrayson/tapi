@@ -254,7 +254,7 @@ static Error readExportedSymbols(MachOObjectFile *object,
   assert(arch != Architecture::unknown && "unknown architecture slice");
 
   Error error = Error::success();
-  for (const auto &symbol : object->exports(error)) {
+  for (const auto &symbol : object->exports()) {
     StringRef name;
     XPIKind kind;
     std::tie(name, kind) = parseSymbol(symbol.name());
