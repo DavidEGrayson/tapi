@@ -1024,7 +1024,7 @@ void Options::printHelp() const {
       outs(),
       (programName + " " + getNameFromTAPICommand(command)).str().c_str(),
       toolName, /*FlagsToInclude=*/getIncludeOptionFlagMasks(command),
-      /*FlagsToExclude=*/0, /*ShowAllAliases=*/false);
+      /*FlagsToExclude=*/0);
 }
 
 TAPI_NAMESPACE_INTERNAL_END
