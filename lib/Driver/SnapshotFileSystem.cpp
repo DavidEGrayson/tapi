@@ -145,7 +145,7 @@ SnapshotFileSystem::openFileForRead(const Twine &path) {
 
   auto status = getFileStatus(path, *externalStatus);
   return std::unique_ptr<File>(
-      make_unique<FileWithFixedStatus>(std::move(*result2), status));
+      llvm::make_unique<FileWithFixedStatus>(std::move(*result2), status));
 }
 
 class SnapshotDirIterImpl : public clang::vfs::detail::DirIterImpl {
@@ -236,7 +236,7 @@ SnapshotFileSystem::addFile(StringRef path, StringRef externalPath) {
   if (auto ec = directory.getError())
     return ec;
   return cast<FileEntry>(directory.get()->addContent(
-      make_unique<FileEntry>(filename, externalPath)));
+      llvm::make_unique<FileEntry>(filename, externalPath)));
 }
 
 ErrorOr<SnapshotFileSystem::DirectoryEntry *>
@@ -252,7 +252,7 @@ SnapshotFileSystem::lookupOrCreate(StringRef name, DirectoryEntry *current) {
       return cast<DirectoryEntry>(entry.get());
   }
   return cast<DirectoryEntry>(
-      current->addContent(make_unique<DirectoryEntry>(name)));
+      current->addContent(llvm::make_unique<DirectoryEntry>(name)));
 }
 
 ErrorOr<SnapshotFileSystem::DirectoryEntry *>

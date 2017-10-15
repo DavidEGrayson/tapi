@@ -85,7 +85,7 @@ struct Context {
 static std::unique_ptr<ParsingJob> createJob(const Context &context,
                                              const Framework &framework) {
   auto &fm = context.fm;
-  auto job = make_unique<ParsingJob>();
+  auto job = llvm::make_unique<ParsingJob>();
   job->fileManager = &fm;
 
   // Get the list of all architectures we have to build for.

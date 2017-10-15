@@ -80,7 +80,7 @@ bool FileManager::isSymlink(StringRef path) {
 
 void FileManager::installStatRecorder() {
   clearStatCaches();
-  addStatCache(make_unique<StatRecorder>());
+  addStatCache(llvm::make_unique<StatRecorder>());
 }
 
 TAPI_NAMESPACE_INTERNAL_END

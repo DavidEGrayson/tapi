@@ -433,7 +433,7 @@ bool Driver::InstallAPI::run(DiagnosticsEngine &diag, Options &opts) {
 
   diag.setErrorLimit(opts.diagnosticsOptions.errorLimit);
 
-  auto job = make_unique<ParsingJob>();
+  auto job = llvm::make_unique<ParsingJob>();
   job->fileManager = &fm;
   job->architectures = opts.linkerOptions.architectures;
   job->platform = opts.frontendOptions.platform;
@@ -590,7 +590,7 @@ bool Driver::InstallAPI::run(DiagnosticsEngine &diag, Options &opts) {
     }
   } else {
     Registry registry;
-    auto reader = make_unique<YAMLReader>();
+    auto reader = llvm::make_unique<YAMLReader>();
     reader->add(std::unique_ptr<DocumentHandler>(
         new json_file::v1::YAMLDocumentHandler));
     registry.add(std::move(reader));
@@ -707,7 +707,7 @@ bool Driver::InstallAPI::run(DiagnosticsEngine &diag, Options &opts) {
   if (!headerSymbols)
     return false;
 
-  auto scanFile = make_unique<ExtendedInterfaceFile>(std::move(headerSymbols));
+  auto scanFile = llvm::make_unique<ExtendedInterfaceFile>(std::move(headerSymbols));
   scanFile->setFileType(FileType::TBD_V2);
   scanFile->setPlatform(opts.frontendOptions.platform);
   scanFile->setArchitectures(opts.linkerOptions.architectures);
@@ -787,7 +787,7 @@ bool Driver::InstallAPI::run(DiagnosticsEngine &diag, Options &opts) {
   }
 
   scanFile->setPath(opts.driverOptions.outputPath);
-  auto interface = make_unique<InterfaceFile>(std::move(*scanFile.get()));
+  auto interface = llvm::make_unique<InterfaceFile>(std::move(*scanFile.get()));
   auto result = manager.writeFile(interface.get());
   if (result) {
     diag.report(diag::err_cannot_write_file)

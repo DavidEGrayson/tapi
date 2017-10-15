@@ -302,7 +302,7 @@ static bool parseFramework(Framework &framework, Options &opts,
   outs() << "Parsing " << framework.getName() << "\n";
   // Setup the header scanning job.
   auto &fm = opts.getFileManager();
-  auto job = make_unique<ParsingJob>();
+  auto job = llvm::make_unique<ParsingJob>();
   job->fileManager = &fm;
   job->architectures = opts.linkerOptions.architectures;
   job->platform = opts.frontendOptions.platform;

@@ -65,7 +65,7 @@ bool Driver::Reexport::run(DiagnosticsEngine &diag, Options &opts) {
     }
   }
 
-  auto job = make_unique<ParsingJob>();
+  auto job = llvm::make_unique<ParsingJob>();
   job->fileManager = &fm;
   job->architectures = opts.linkerOptions.architectures;
   job->platform = opts.frontendOptions.platform;
@@ -99,7 +99,7 @@ bool Driver::Reexport::run(DiagnosticsEngine &diag, Options &opts) {
   if (!headerSymbols)
     return false;
 
-  auto scanFile = make_unique<ExtendedInterfaceFile>(std::move(headerSymbols));
+  auto scanFile = llvm::make_unique<ExtendedInterfaceFile>(std::move(headerSymbols));
   scanFile->setFileType(FileType::ReexportFile);
   scanFile->setArchitectures(opts.linkerOptions.architectures);
   scanFile->setPlatform(opts.frontendOptions.platform);

@@ -109,7 +109,7 @@ void Registry::addBinaryReaders() {
 }
 
 void Registry::addYAMLReaders() {
-  auto reader = make_unique<YAMLReader>();
+  auto reader = llvm::make_unique<YAMLReader>();
   reader->add(
       std::unique_ptr<DocumentHandler>(new stub::v1::YAMLDocumentHandler));
   reader->add(
@@ -122,7 +122,7 @@ void Registry::addYAMLReaders() {
 }
 
 void Registry::addYAMLWriters() {
-  auto writer = make_unique<YAMLWriter>();
+  auto writer = llvm::make_unique<YAMLWriter>();
   writer->add(
       std::unique_ptr<DocumentHandler>(new stub::v1::YAMLDocumentHandler));
   writer->add(

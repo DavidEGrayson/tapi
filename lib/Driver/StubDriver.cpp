@@ -189,7 +189,7 @@ static bool inlineFrameworks(Context &ctx, InterfaceFile *dylib) {
     std::unique_ptr<InterfaceFile> interface;
     auto *file2 = file.get().release();
     if (auto *extended = dyn_cast<ExtendedInterfaceFile>(file2))
-      interface = make_unique<InterfaceFile>(std::move(*extended));
+      interface = llvm::make_unique<InterfaceFile>(std::move(*extended));
     else
       interface = std::unique_ptr<InterfaceFile>(cast<InterfaceFile>(file2));
 
@@ -299,7 +299,7 @@ static bool stubifyDynamicLibrary(Context &ctx) {
   std::unique_ptr<InterfaceFile> interface;
   auto *file2 = file.get().release();
   if (auto *extended = dyn_cast<ExtendedInterfaceFile>(file2))
-    interface = make_unique<InterfaceFile>(std::move(*extended));
+    interface = llvm::make_unique<InterfaceFile>(std::move(*extended));
   else
     interface = std::unique_ptr<InterfaceFile>(cast<InterfaceFile>(file2));
 
@@ -484,7 +484,7 @@ static bool stubifyDirectory(Context &ctx) {
     std::unique_ptr<InterfaceFile> interface;
     auto *file3 = file2.get().release();
     if (auto *extended = dyn_cast<ExtendedInterfaceFile>(file3))
-      interface = make_unique<InterfaceFile>(std::move(*extended));
+      interface = llvm::make_unique<InterfaceFile>(std::move(*extended));
     else
       interface = std::unique_ptr<InterfaceFile>(cast<InterfaceFile>(file3));
 

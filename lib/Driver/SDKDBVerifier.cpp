@@ -43,11 +43,11 @@ struct Context {
     registry.addBinaryReaders();
     registry.addYAMLReaders();
     // Add SDKDB YAML Writer.
-    auto writer = make_unique<YAMLWriter>();
-    writer->add(make_unique<sdkdb::v1::YAMLDocumentHandler>());
+    auto writer = llvm::make_unique<YAMLWriter>();
+    writer->add(llvm::make_unique<sdkdb::v1::YAMLDocumentHandler>());
     registry.add(std::move(writer));
-    auto reader = make_unique<YAMLReader>();
-    reader->add(make_unique<sdkdb::v1::YAMLDocumentHandler>());
+    auto reader = llvm::make_unique<YAMLReader>();
+    reader->add(llvm::make_unique<sdkdb::v1::YAMLDocumentHandler>());
     registry.add(std::move(reader));
   }
 };

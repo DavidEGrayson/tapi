@@ -23,8 +23,8 @@ namespace {
 
 Registry setupRegistry() {
   Registry registry;
-  auto writer = make_unique<YAMLWriter>();
-  writer->add(make_unique<sdkdb::v1::YAMLDocumentHandler>());
+  auto writer = llvm::make_unique<YAMLWriter>();
+  writer->add(llvm::make_unique<sdkdb::v1::YAMLDocumentHandler>());
   registry.add(std::move(writer));
   return registry;
 }
@@ -32,7 +32,7 @@ Registry setupRegistry() {
 TEST(SDKDB, SymbolsOnly) {
   Registry registry = setupRegistry();
 
-  auto db = make_unique<SDKDBFile>();
+  auto db = llvm::make_unique<SDKDBFile>();
   db->setFileType(SDKDB_V1);
   db->setInstallName("/usr/lib/libtest.dylib");
   db->addGlobalSymbol(
@@ -69,7 +69,7 @@ TEST(SDKDB, SymbolsOnly) {
 TEST(SDKDB, ClassesOnly) {
   Registry registry = setupRegistry();
 
-  auto db = make_unique<SDKDBFile>();
+  auto db = llvm::make_unique<SDKDBFile>();
   db->setFileType(SDKDB_V1);
   db->setInstallName("/usr/lib/libtest.dylib");
   db->addObjectiveCClass(
@@ -97,7 +97,7 @@ TEST(SDKDB, ClassesOnly) {
 TEST(SDKDB, ClassesOnlyWithMethods) {
   Registry registry = setupRegistry();
 
-  auto db = make_unique<SDKDBFile>();
+  auto db = llvm::make_unique<SDKDBFile>();
   db->setFileType(SDKDB_V1);
   db->setInstallName("/usr/lib/libtest.dylib");
   auto *class1 = db->addObjectiveCClass(
@@ -161,7 +161,7 @@ TEST(SDKDB, ClassesOnlyWithMethods) {
 TEST(SDKDB, CategoriesOnly) {
   Registry registry = setupRegistry();
 
-  auto db = make_unique<SDKDBFile>();
+  auto db = llvm::make_unique<SDKDBFile>();
   db->setFileType(SDKDB_V1);
   db->setInstallName("/usr/lib/libtest.dylib");
   db->addObjectiveCCategory(
@@ -189,7 +189,7 @@ TEST(SDKDB, CategoriesOnly) {
 TEST(SDKDB, CategoriesOnlyWithMethods) {
   Registry registry = setupRegistry();
 
-  auto db = make_unique<SDKDBFile>();
+  auto db = llvm::make_unique<SDKDBFile>();
   db->setFileType(SDKDB_V1);
   db->setInstallName("/usr/lib/libtest.dylib");
   auto *cat1 = db->addObjectiveCCategory(
@@ -253,7 +253,7 @@ TEST(SDKDB, CategoriesOnlyWithMethods) {
 TEST(SDKDB, ProtocolsOnly) {
   Registry registry = setupRegistry();
 
-  auto db = make_unique<SDKDBFile>();
+  auto db = llvm::make_unique<SDKDBFile>();
   db->setFileType(SDKDB_V1);
   db->setInstallName("/usr/lib/libtest.dylib");
   db->addObjectiveCProtocol(
@@ -286,7 +286,7 @@ TEST(SDKDB, ProtocolsOnly) {
 TEST(SDKDB, ProtocolsOnlyWithMethods) {
   Registry registry = setupRegistry();
 
-  auto db = make_unique<SDKDBFile>();
+  auto db = llvm::make_unique<SDKDBFile>();
   db->setFileType(SDKDB_V1);
   db->setInstallName("/usr/lib/libtest.dylib");
   auto *proto1 = db->addObjectiveCProtocol(
@@ -348,7 +348,7 @@ TEST(SDKDB, ProtocolsOnlyWithMethods) {
 TEST(SDKDB, Everything) {
   Registry registry = setupRegistry();
 
-  auto db = make_unique<SDKDBFile>();
+  auto db = llvm::make_unique<SDKDBFile>();
   db->setFileType(SDKDB_V1);
   db->setInstallName("/usr/lib/libtest.dylib");
 
@@ -519,14 +519,14 @@ TEST(SDKDB, Everything) {
 TEST(SDKDB, SimpleMerge) {
   Registry registry = setupRegistry();
 
-  auto db1 = make_unique<SDKDBFile>();
+  auto db1 = llvm::make_unique<SDKDBFile>();
   db1->setFileType(SDKDB_V1);
   db1->setInstallName("/usr/lib/libtest.dylib");
   db1->addGlobalSymbol(
       "sym1", /*isPublic=*/true,
       AvailabilityInfo(PackedVersion(1, 0, 0), PackedVersion(), false));
 
-  auto db2 = make_unique<SDKDBFile>();
+  auto db2 = llvm::make_unique<SDKDBFile>();
   db2->setFileType(SDKDB_V1);
   db2->setInstallName("/usr/lib/libtest.dylib");
   db2->addGlobalSymbol("sym2", /*isPublic=*/false, AvailabilityInfo(true));
@@ -562,12 +562,12 @@ TEST(SDKDB, SimpleMerge) {
 TEST(SDKDB, UpdateMerge) {
   Registry registry = setupRegistry();
 
-  auto db1 = make_unique<SDKDBFile>();
+  auto db1 = llvm::make_unique<SDKDBFile>();
   db1->setFileType(SDKDB_V1);
   db1->setInstallName("/usr/lib/libtest.dylib");
   db1->addGlobalSymbol("sym1", /*isPublic=*/false, AvailabilityInfo());
 
-  auto db2 = make_unique<SDKDBFile>();
+  auto db2 = llvm::make_unique<SDKDBFile>();
   db2->setFileType(SDKDB_V1);
   db2->setInstallName("/usr/lib/libtest.dylib");
   db2->addGlobalSymbol(
@@ -596,14 +596,14 @@ TEST(SDKDB, UpdateMerge) {
 TEST(SDKDB, ConflictMerge) {
   Registry registry = setupRegistry();
 
-  auto db1 = make_unique<SDKDBFile>();
+  auto db1 = llvm::make_unique<SDKDBFile>();
   db1->setFileType(SDKDB_V1);
   db1->setInstallName("/usr/lib/libtest.dylib");
   db1->addGlobalSymbol(
       "sym1", /*isPublic=*/true,
       AvailabilityInfo(PackedVersion(2, 0, 0), PackedVersion(), false));
 
-  auto db2 = make_unique<SDKDBFile>();
+  auto db2 = llvm::make_unique<SDKDBFile>();
   db2->setFileType(SDKDB_V1);
   db2->setInstallName("/usr/lib/libtest.dylib");
   db2->addGlobalSymbol(
@@ -623,7 +623,7 @@ TEST(SDKDB, ConflictMerge) {
 }
 
 TEST(SDKDB, VerifySuccess) {
-  auto db1 = make_unique<SDKDBFile>();
+  auto db1 = llvm::make_unique<SDKDBFile>();
   db1->setFileType(SDKDB_V1);
   db1->setInstallName("/usr/lib/libtest.dylib");
   db1->addGlobalSymbol(
@@ -651,7 +651,7 @@ TEST(SDKDB, VerifySuccess) {
       AvailabilityInfo(PackedVersion(1, 0, 0), PackedVersion(), false));
   EXPECT_FALSE(db1->takeError());
 
-  auto db2 = make_unique<SDKDBFile>();
+  auto db2 = llvm::make_unique<SDKDBFile>();
   db2->setFileType(SDKDB_V1);
   db2->setInstallName("/usr/lib/libtest.dylib");
   // Same symbol.
@@ -695,7 +695,7 @@ TEST(SDKDB, VerifySuccess) {
 }
 
 TEST(SDKDB, VerifyAPIRegression) {
-  auto db1 = make_unique<SDKDBFile>();
+  auto db1 = llvm::make_unique<SDKDBFile>();
   db1->setFileType(SDKDB_V1);
   db1->setInstallName("/usr/lib/libtest.dylib");
   db1->addGlobalSymbol(
@@ -703,7 +703,7 @@ TEST(SDKDB, VerifyAPIRegression) {
       AvailabilityInfo(PackedVersion(2, 0, 0), PackedVersion(), false));
   EXPECT_FALSE(db1->takeError());
 
-  auto db2 = make_unique<SDKDBFile>();
+  auto db2 = llvm::make_unique<SDKDBFile>();
   db2->setFileType(SDKDB_V1);
   db2->setInstallName("/usr/lib/libtest.dylib");
   db2->addGlobalSymbol(
@@ -723,7 +723,7 @@ TEST(SDKDB, VerifyAPIRegression) {
 }
 
 TEST(SDKDB, VerifyAvailabilityRegression) {
-  auto db1 = make_unique<SDKDBFile>();
+  auto db1 = llvm::make_unique<SDKDBFile>();
   db1->setFileType(SDKDB_V1);
   db1->setInstallName("/usr/lib/libtest.dylib");
   db1->addGlobalSymbol(
@@ -731,7 +731,7 @@ TEST(SDKDB, VerifyAvailabilityRegression) {
       AvailabilityInfo(PackedVersion(2, 0, 0), PackedVersion(), false));
   EXPECT_FALSE(db1->takeError());
 
-  auto db2 = make_unique<SDKDBFile>();
+  auto db2 = llvm::make_unique<SDKDBFile>();
   db2->setFileType(SDKDB_V1);
   db2->setInstallName("/usr/lib/libtest.dylib");
   db2->addGlobalSymbol(
@@ -752,7 +752,7 @@ TEST(SDKDB, VerifyAvailabilityRegression) {
 }
 
 TEST(SDKDB, VerifyAPIMissing) {
-  auto db1 = make_unique<SDKDBFile>();
+  auto db1 = llvm::make_unique<SDKDBFile>();
   db1->setFileType(SDKDB_V1);
   db1->setInstallName("/usr/lib/libtest.dylib");
   db1->addGlobalSymbol(
@@ -760,7 +760,7 @@ TEST(SDKDB, VerifyAPIMissing) {
       AvailabilityInfo(PackedVersion(2, 0, 0), PackedVersion(), false));
   EXPECT_FALSE(db1->takeError());
 
-  auto db2 = make_unique<SDKDBFile>();
+  auto db2 = llvm::make_unique<SDKDBFile>();
   db2->setFileType(SDKDB_V1);
   db2->setInstallName("/usr/lib/libtest.dylib");
   EXPECT_FALSE(db2->takeError());
@@ -777,7 +777,7 @@ TEST(SDKDB, VerifyAPIMissing) {
 }
 
 TEST(SDKDB, VerifyCategory) {
-  auto db1 = make_unique<SDKDBFile>();
+  auto db1 = llvm::make_unique<SDKDBFile>();
   db1->setFileType(SDKDB_V1);
   db1->setInstallName("/usr/lib/libtest.dylib");
   auto *class1 = db1->addObjectiveCClass(
@@ -792,7 +792,7 @@ TEST(SDKDB, VerifyCategory) {
   db1->categoryMerge();
   EXPECT_FALSE(db1->takeError());
 
-  auto db2 = make_unique<SDKDBFile>();
+  auto db2 = llvm::make_unique<SDKDBFile>();
   db2->setFileType(SDKDB_V1);
   db2->setInstallName("/usr/lib/libtest.dylib");
   class1 = db2->addObjectiveCClass(
@@ -820,13 +820,13 @@ TEST(SDKDB, VerifyCategory) {
 }
 
 TEST(SDKDB, VerifyRemoveUnavailable) {
-  auto db1 = make_unique<SDKDBFile>();
+  auto db1 = llvm::make_unique<SDKDBFile>();
   db1->setFileType(SDKDB_V1);
   db1->setInstallName("/usr/lib/libtest.dylib");
   db1->addGlobalSymbol("sym1", /*isPublic=*/true, AvailabilityInfo(true));
   EXPECT_FALSE(db1->takeError());
 
-  auto db2 = make_unique<SDKDBFile>();
+  auto db2 = llvm::make_unique<SDKDBFile>();
   db2->setFileType(SDKDB_V1);
   db2->setInstallName("/usr/lib/libtest.dylib");
   EXPECT_FALSE(db2->takeError());

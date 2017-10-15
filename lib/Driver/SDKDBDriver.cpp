@@ -62,8 +62,8 @@ struct Context {
     registry.addBinaryReaders();
     registry.addYAMLReaders();
     // Add SDKDB YAML Writer.
-    auto writer = make_unique<YAMLWriter>();
-    writer->add(make_unique<sdkdb::v1::YAMLDocumentHandler>());
+    auto writer = llvm::make_unique<YAMLWriter>();
+    writer->add(llvm::make_unique<sdkdb::v1::YAMLDocumentHandler>());
     registry.add(std::move(writer));
   }
 
@@ -90,7 +90,7 @@ static std::unique_ptr<ParsingJob> createJob(const Context &context,
                                              const Framework &framework,
                                              const ArchitectureSet &arches) {
   auto &fm = context.fm;
-  auto job = make_unique<ParsingJob>();
+  auto job = llvm::make_unique<ParsingJob>();
   job->fileManager = &fm;
 
   if (arches == ArchitectureSet::All()) {
@@ -350,7 +350,7 @@ static llvm::Expected<SDKDBFile> handleFramework(const Framework *framework,
   SDKDBFile frameworkSDKDB;
   frameworkSDKDB.setInstallName(framework->getName());
   for (auto &interface : framework->_interfaceFiles) {
-    auto db = make_unique<SDKDBFile>();
+    auto db = llvm::make_unique<SDKDBFile>();
     db->setInstallName(interface->getInstallName());
     db->addXPISets(framework->_headerSymbols.get(), &interface->getSymbolSet());
 
