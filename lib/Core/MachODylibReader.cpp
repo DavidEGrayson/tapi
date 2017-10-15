@@ -18,7 +18,6 @@
 #include "tapi/Core/XPI.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/BinaryFormat/Magic.h"
-#include "llvm/ObjCMetadata/ObjCMachOBinary.h"
 #include "llvm/Object/MachO.h"
 #include "llvm/Object/MachOUniversal.h"
 #include <tuple>
