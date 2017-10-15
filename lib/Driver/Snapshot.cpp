@@ -14,11 +14,14 @@
 #include "tapi/Defines.h"
 #include "clang/Frontend/FrontendOptions.h"
 #include "llvm/ADT/ArrayRef.h"
-#include "llvm/Config/llvm-config.h"
 #include "llvm/Support/FileSystem.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Support/xxhash.h"
 #include <sstream>
+
+#ifndef BUG_REPORT_URL
+#define BUG_REPORT_URL "https://github.com/DavidEGrayson/tapi"
+#endif
 
 using namespace llvm;
 using namespace TAPI_INTERNAL;
