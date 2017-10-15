@@ -305,6 +305,9 @@ static Error readUndefinedSymbols(MachOObjectFile *object,
 
 static Error readObjectiveCMetadata(MachOObjectFile *object,
                                     ExtendedInterfaceFile *file) {
+  return make_error<StringError>("objective C metadata reading disabled",
+    inconvertibleErrorCode());
+#if 0
   auto H = object->getHeader();
   auto arch = getArchType(H.cputype, H.cpusubtype);
 
@@ -577,6 +580,7 @@ static Error readObjectiveCMetadata(MachOObjectFile *object,
   }
 
   return Error::success();
+#endif
 }
 
 static Error load(MachOObjectFile *object, ExtendedInterfaceFile *file,
