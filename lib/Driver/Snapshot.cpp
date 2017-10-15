@@ -14,7 +14,7 @@
 #include "tapi/Defines.h"
 #include "clang/Frontend/FrontendOptions.h"
 #include "llvm/ADT/ArrayRef.h"
-#include "llvm/Config/config.h"
+#include "llvm/Config/llvm-config.h"
 #include "llvm/Support/FileSystem.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Support/xxhash.h"
