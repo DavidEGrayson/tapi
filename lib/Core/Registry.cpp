@@ -19,6 +19,7 @@
 #include "tapi/Core/TextAPI_v1.h"
 #include "tapi/Core/TextStub_v1.h"
 #include "tapi/Core/TextStub_v2.h"
+#include "tapi/Core/TextStub_v3.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/Support/FileSystem.h"
 #include "llvm/Support/raw_ostream.h"
@@ -114,6 +115,8 @@ void Registry::addYAMLReaders() {
       std::unique_ptr<DocumentHandler>(new stub::v1::YAMLDocumentHandler));
   reader->add(
       std::unique_ptr<DocumentHandler>(new stub::v2::YAMLDocumentHandler));
+  reader->add(
+      std::unique_ptr<DocumentHandler>(new stub::v3::YAMLDocumentHandler));
   reader->add(
       std::unique_ptr<DocumentHandler>(new api::v1::YAMLDocumentHandler));
   reader->add(std::unique_ptr<DocumentHandler>(
